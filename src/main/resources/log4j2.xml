@@ -7,7 +7,7 @@
         <Console name="LogToConsole" target="SYSTEM_OUT">
             <PatternLayout pattern="${appenderPatternLayout}"/>
         </Console>
-        <File name="LogToFile" fileName="logs/api.log" immediateFlush="false" append="false">
+        <File name="LogToFile" fileName="logs/api.log" immediateFlush="false" append="true">
             <PatternLayout pattern="${appenderPatternLayout}"/>
         </File>
     </Appenders>
