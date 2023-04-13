@@ -47,7 +47,7 @@ public class SoilDataController {
                 linkTo(methodOn(SoilDataController.class).all()).withSelfRel());
     }
 
-    @GetMapping("/betweenDates")
+    @GetMapping("/between-dates")
     public CollectionModel<EntityModel<SoilData>> betweenDates(@RequestParam("beginDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime beginDate,
                                                                @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
                                                                @RequestParam(name = "page", defaultValue = "0") int page,
@@ -78,6 +78,23 @@ public class SoilDataController {
         log.info("Request to get soil data with id: " + id);
         SoilData soilData = repository.findById(id)
                 .orElseThrow(() -> new SoilDataNotFoundException(id));
+
+        EntityModel<SoilData> entityModel = assembler.toModel(soilData);
+        return ResponseEntity.ok(entityModel);
+    }
+
+
+    /**
+     * TODO: if the updated parameter is set to true, the find latest method should return the latest updated soil data
+     *
+     * @param updated
+     * @return
+     */
+    @GetMapping("/latest")
+    public ResponseEntity<EntityModel<SoilData>> latest(@RequestParam(name = "updated", defaultValue = "false") boolean updated) {
+        log.info("Request to get latest soil data");
+        SoilData soilData = repository.findLatest(updated)
+                .orElseThrow(() -> new SoilDataNotFoundException(null));
 
         EntityModel<SoilData> entityModel = assembler.toModel(soilData);
         return ResponseEntity.ok(entityModel);
