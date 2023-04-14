@@ -106,7 +106,7 @@ public class SoilDataController {
 
         SoilData updatedSoilData = repository.findById(id)
                 .map(data -> {
-                    data.setWaterlevel(newSoilData.getWaterlevel());
+                    data.setMoistureLevel(newSoilData.getMoistureLevel());
                     data.setTemperature(newSoilData.getTemperature());
                     data.setRelativeHumidity(newSoilData.getRelativeHumidity());
                     return repository.save(data);

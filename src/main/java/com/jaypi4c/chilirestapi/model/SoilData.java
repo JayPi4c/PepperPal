@@ -28,12 +28,13 @@ public class SoilData {
 
     private float temperature;
     private float relativeHumidity;
-    private float waterlevel;
+    @Column(name = "waterlevel")
+    private float moistureLevel;
 
-    public SoilData(float temperature, float relativeHumidity, float waterlevel) {
+    public SoilData(float temperature, float relativeHumidity, float moistureLevel) {
         this.temperature = temperature;
         this.relativeHumidity = relativeHumidity;
-        this.waterlevel = waterlevel;
+        this.moistureLevel = moistureLevel;
     }
 
     @PrePersist
