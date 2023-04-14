@@ -45,5 +45,4 @@ public class WebController {
         return soilDataSet.getEmbedded().getSoilDataList();
     }
 
-
 }
