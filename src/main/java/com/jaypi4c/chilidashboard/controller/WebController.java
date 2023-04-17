@@ -11,6 +11,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -30,7 +32,19 @@ public class WebController {
 
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("chartData", getChartData(LocalDateTime.now().minusDays(1), LocalDateTime.now(), 0, 50));
+        List<SoilData> data = new ArrayList<>();
+        List<SoilData> tmp;
+        int page = 0;
+        do {
+            try {
+                tmp = getChartData(LocalDateTime.now().minusDays(1), LocalDateTime.now(), page, 50);
+            }catch(NullPointerException e){
+                tmp = Collections.emptyList();
+            }
+            page++;
+            data.addAll(tmp);
+        }while(!tmp.isEmpty());
+        model.addAttribute("chartData", data);
         return "dashboard";
     }
 

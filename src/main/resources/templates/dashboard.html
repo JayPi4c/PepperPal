@@ -19,18 +19,17 @@
         function drawChart() {
 
             // Create the data table.
-            let data = google.visualization.arrayToDataTable(
+            let humid_temp_data = google.visualization.arrayToDataTable(
                 [
-                    ['created', 'moistureLevel', 'temperature', 'humidity'],
+                    ['created', 'temperature', 'humidity'],
                     /*[# th:each="entry : ${chartData}"]*/
-                    [new Date([[${entry.created}]]), [[${entry.moistureLevel}]], [[${entry.temperature}]], [[${entry.relativeHumidity}]]],
+                    [new Date([[${entry.created}]]), [[${entry.temperature}]], [[${entry.relativeHumidity}]]],
                     /*[/]*/
                 ]
             );
 
-
             // Set chart options
-            const options = {
+            const humid_temp_options = {
                 enableInteractivity: true,
                 title: 'Soil Data',
                 hAxis: {
@@ -43,17 +42,59 @@
                         count: 10
                     }
                 },
-                vAxis: {minValue: 0}
+                vAxis: {minValue: 0},
+                colors: ['red', 'blue'],
+                curveType: 'function',
+                legend: { position: 'bottom' }
             };
 
+
             // Instantiate and draw our chart, passing in some options.
-            const chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-            chart.draw(data, options);
+            const humid_temp_chart = new google.visualization.LineChart(document.getElementById('temp_humid_div'));
+            humid_temp_chart.draw(humid_temp_data, humid_temp_options);
+
+
+
+            // Create the data table.
+            let moistureLevel_data = google.visualization.arrayToDataTable(
+                [
+                    ['created', 'moisture'],
+                    /*[# th:each="entry : ${chartData}"]*/
+                    [new Date([[${entry.created}]]), [[${entry.moistureLevel}]]],
+                    /*[/]*/
+                ]
+            );
+
+            // Set chart options
+            const moistureLevel_options = {
+                enableInteractivity: true,
+                title: 'Soil Data',
+                hAxis: {
+                    title: 'created',
+                    titleTextStyle: {
+                        color: '#333'
+                    },
+                    format: 'HH:mm',
+                    gridlines: {
+                        count: 10
+                    }
+                },
+                colors: ['blue'],
+                curveType: 'function',
+                legend: { position: 'bottom' }
+            };
+
+
+            // Instantiate and draw our chart, passing in some options.
+            const moistureLevel_chart = new google.visualization.LineChart(document.getElementById('moisture_div'));
+            moistureLevel_chart.draw(moistureLevel_data, moistureLevel_options);
+
         }
     </script>
 </head>
 <body>
 <h1>Google Charts With Thymeleaf</h1>
-<div id="chart_div"></div>
+<div id="moisture_div" style="height: 40vh; width:100%;"></div>
+<div id="temp_humid_div" style="height: 40vh; width:100%;"></div>
 </body>
 </html>
