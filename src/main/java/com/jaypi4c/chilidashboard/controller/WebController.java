@@ -4,9 +4,11 @@ import com.jaypi4c.chilidashboard.model.DataSet;
 import com.jaypi4c.chilidashboard.model.SoilData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import java.text.MessageFormat;
@@ -31,19 +33,27 @@ public class WebController {
     }
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime begin,
+                        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end,
+                        Model model) {
+        if (end == null)
+            end = LocalDateTime.now();
+
+        if (begin == null)
+            begin = end.minusDays(1);
+
         List<SoilData> data = new ArrayList<>();
         List<SoilData> tmp;
         int page = 0;
         do {
             try {
-                tmp = getChartData(LocalDateTime.now().minusDays(1), LocalDateTime.now(), page, 50);
-            }catch(NullPointerException e){
+                tmp = getChartData(begin, end, page, 50);
+            } catch (NullPointerException e) {
                 tmp = Collections.emptyList();
             }
             page++;
             data.addAll(tmp);
-        }while(!tmp.isEmpty());
+        } while (!tmp.isEmpty());
         model.addAttribute("chartData", data);
         return "dashboard";
     }
