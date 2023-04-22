@@ -1,6 +1,6 @@
-$(document).ready(function () {
+$(document).ready(() => {
     // add a click event listener to the <a> element
-    $("#makeRequest").click(function () {
+    $("#makeRequest").click(() => {
         const start = $("#start").val();
         const end = $("#end").val();
         const url = `/?begin=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}`;
@@ -18,15 +18,16 @@ $(document).ready(function () {
     now.setMilliseconds(null)
     now.setSeconds(null)
 
-    let date = now.toISOString().slice(0, -1);
+    let date_string = now.toISOString().slice(0, -1);
     let start_date = new Date(now);
     start_date.setHours(start_date.getHours() - 8);
+    let start_date_string = start_date.toISOString().slice(0, -1);
 
     let start = $("#start");
-    start.attr("max", date);
-    start.val(searchParams.has('begin') ? searchParams.get('begin') : start_date.toISOString().slice(0, -1));
+    start.attr("max", date_string);
+    start.val(searchParams.has('begin') ? searchParams.get('begin') : start_date_string);
 
     let end = $("#end");
-    end.attr("max", date);
-    end.val(searchParams.has('end') ? searchParams.get('end') : date);
+    end.attr("max", date_string);
+    end.val(searchParams.has('end') ? searchParams.get('end') : date_string);
 });

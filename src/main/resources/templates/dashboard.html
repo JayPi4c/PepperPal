@@ -12,17 +12,15 @@
     <!-- get the data into javascript-->
     <script th:inline="javascript" type="text/javascript">
         // get data from the server
-        const humid_temp_data_array = [
-            ['created', 'temperature', 'humidity'],
+        const data = [
             /*[# th:each="entry : ${chartData}"]*/
-            [new Date([[${entry.created}]]), [[${entry.temperature}]], [[${entry.relativeHumidity}]]],
-            /*[/]*/
-        ];
-
-        const moistureLevel_data_array = [
-            ['created', 'moisture'],
-            /*[# th:each="entry : ${chartData}"]*/
-            [new Date([[${entry.created}]]), [[${entry.moistureLevel}]]],
+            {
+                "created": new Date([[${entry.created}]]),
+                "updated": new Date([[${entry.updated}]]),
+                "temperature": [[${entry.temperature}]],
+                "relativeHumidity": [[${entry.relativeHumidity}]],
+                "moistureLevel": [[${entry.moistureLevel}]]
+            },
             /*[/]*/
         ];
     </script>
