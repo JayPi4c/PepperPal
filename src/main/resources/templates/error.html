@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link rel="icon" type="image/ico" th:href="@{../favicon.ico}">
+</head>
+<body>
+<h1>Error Page</h1>
+<p>Application has encountered an error. Please click <a href="/">here</a> to get back to the main page.</p>
+
+<!--
+  Failed URL: ${url}
+  Exception:  ${exception.message}
+      <c:forEach items="${exception.stackTrace}" var="ste">    ${ste}
+  </c:forEach>
+-->
+</body>
+</html>
