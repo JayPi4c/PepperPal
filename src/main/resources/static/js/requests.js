@@ -4,7 +4,7 @@ $(document).ready(() => {
         const start = $("#start").val();
         const end = $("#end").val();
         const url = `/?begin=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}`;
-        $(this).attr("href", url);
+        $("#makeRequest").attr("href", url);
     });
 
     // https://stackoverflow.com/a/42353290
