@@ -2,6 +2,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    /*https://www.designer-daily.com/10-fonts-that-are-safe-to-use-with-css-34474*/
+    font-family: Tahoma, Verdana, Segoe, sans-serif;
 }
 
 .title {
