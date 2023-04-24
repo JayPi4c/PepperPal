@@ -1,9 +1,41 @@
 body {
+    --text-color: #222;
+    --bkg-color: #fff;
+    --input-bkg-color : #fff;
+    --input-border-color: #000;
+    --input-text-color: #000;
+    --invert-value: 0;
+}
+body.dark-theme {
+    --text-color: #eee;
+    --bkg-color: #121212;
+    --input-bkg-color : #2d2d2d;
+    --input-border-color: #555;
+    --input-text-color: #fff;
+    --invert-value: 1;
+}
+
+body {
+    background: var(--bkg-color);
     display: flex;
     flex-direction: column;
     align-items: center;
     /*https://www.designer-daily.com/10-fonts-that-are-safe-to-use-with-css-34474*/
     font-family: Tahoma, Verdana, Segoe, sans-serif;
+    color: var(--text-color);
+}
+
+input[type="datetime-local"] {
+    background-color: var(--input-bkg-color);
+    color: var(--input-text-color);
+    border: 1px solid var(--input-border-color);
+    border-radius: 4px;
+    padding: 8px;
+}
+
+/* Dark mode styling for the date and time picker popup menu */
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(var(--invert-value));
 }
 
 .title {
@@ -54,5 +86,25 @@ input {
 }
 
 #makeRequest:hover {
+    background-color: #0069d9;
+}
+
+.btn-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.3rem;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1.2rem;
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
+
+.btn-toggle:hover {
     background-color: #0069d9;
 }

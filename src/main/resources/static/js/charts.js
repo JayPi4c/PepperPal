@@ -20,22 +20,27 @@ for (entry of data) {
 
 // Set chart options
 const humid_temp_options = {
+    backgroundColor: 'transparent',
     enableInteractivity: true,
     title: 'Soil Data',
+    titleTextStyle: {color: '#787878'},
     hAxis: {
         title: 'created',
         titleTextStyle: {
-            color: '#333'
+            color: '#787878'
         },
         format: 'HH:mm',
         gridlines: {
-            count: 10
+            count: 10,
+            color: '#787878'
         }
     },
-    vAxis: {minValue: 0},
+    vAxis: {minValue: 0, color: '#787878'},
     colors: ['red', 'blue'],
     curveType: 'function',
-    legend: {position: 'bottom'}
+    legend: {
+        position: 'bottom'
+    }
 };
 
 // moisture level chart
@@ -50,21 +55,29 @@ for (entry of data) {
 
 // Set chart options
 const moistureLevel_options = {
+    backgroundColor: 'transparent',
     enableInteractivity: true,
     title: 'Soil Data',
+    titleTextStyle: {
+        color: '#787878'
+    },
     hAxis: {
         title: 'created',
         titleTextStyle: {
-            color: '#333'
+            color: '#787878'
         },
         format: 'HH:mm',
         gridlines: {
-            count: 10
+            count: 10,
+            color: '#787878'
         }
     },
     colors: ['blue'],
     curveType: 'function',
-    legend: {position: 'bottom'}
+    legend: {
+        position: 'bottom',
+        color: '#787878'
+    }
 };
 
 
