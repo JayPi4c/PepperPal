@@ -15,12 +15,11 @@
     <script src="https://cdn.jsdelivr.net/npm/moment@^2"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@^1"></script>
     <script src="/js/charts.js" type="text/javascript"></script>
-    <script src="/js/requests.js" type="text/javascript"></script>
     <script src="/js/theme.js" type="text/javascript"></script>
 </head>
 <body>
 <h1 class="title">Chili Dashboard</h1>
-<div class="input-section">
+<form class="input-section" action="/" method="GET">
     <div class="input-container">
         <label for="start">Start datetime:</label>
         <input type="datetime-local" id="start" name="start"
@@ -31,8 +30,9 @@
         <input type="datetime-local" id="end" name="end"
                min="2023-03-15T00:00">
     </div>
-    <a id="makeRequest" href="/">Update</a>
-</div>
+
+    <input id="makeRequest" type="submit" value="Update">
+</form>
 <button class="btn-toggle">Theme</button>
 <canvas class="chart" id="moisture_chart" style="height: 38vh; width:100%;"></canvas>
 <canvas class="chart" id="temp_humid_chart" style="height: 38vh; width:100%;"></canvas>

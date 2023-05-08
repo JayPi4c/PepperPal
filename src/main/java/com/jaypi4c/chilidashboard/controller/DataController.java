@@ -27,29 +27,28 @@ public class DataController {
 
     @Value("${jaypi4c.chili-app.base-url}")
     private String baseUrl;
-    @Value("${jaypi4c.chili-app.port}")
-    private String port;
 
     public DataController(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
     @GetMapping
-    public List<SoilData> getSoilData(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime begin,
-                                      @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end){
-
+    public List<SoilData> getSoilData(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
+                                      @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end) {
         if (end == null)
             end = LocalDateTime.now();
 
-        if (begin == null)
-            begin = end.minusDays(1);
-        log.debug("Getting data between {} and {}", begin, end);
+        if (start == null)
+            start = end.minusDays(1);
+
+        log.debug("Getting data between {} and {}", start, end);
+
         List<SoilData> data = new ArrayList<>();
         List<SoilData> tmp;
         int page = 0;
         do {
             try {
-                tmp = getChartData(begin, end, page, 50);
+                tmp = getChartData(start, end, page, 50);
             } catch (NullPointerException e) {
                 tmp = Collections.emptyList();
             }
@@ -61,14 +60,13 @@ public class DataController {
     }
 
     private List<SoilData> getChartData(LocalDateTime beginDate, LocalDateTime endDate, int page, int size) {
-        String url = MessageFormat.format("{0}:{1}/chili-app/v1/soilData/between-dates?beginDate={2}&endDate={3}&page={4}&size={5}",
-                baseUrl, port, beginDate, endDate, page, size);
+        String url = MessageFormat.format("{0}/chili-app/v1/soilData/between-dates?beginDate={1}&endDate={2}&page={3}&size={4}",
+                baseUrl, beginDate, endDate, page, size);
         log.debug("Fetching data for page {} with url {}", page, url);
         DataSet soilDataSet = restTemplate.getForObject(url, DataSet.class);
 
         assert soilDataSet != null;
         return soilDataSet.getEmbedded().getSoilDataList();
     }
-
 
 }

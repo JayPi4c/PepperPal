@@ -9,11 +9,48 @@ $(document).ready(() => {
         }
     });
 
-    // redraw on resize
-    // $(window).resize(drawChart);
+    // https://stackoverflow.com/a/42353290
+    let searchParams = new URLSearchParams(window.location.search)
+    let end_date;
+
+    if (!searchParams.has("end")) {
+        end_date = new Date();
+    } else {
+        end_date = new Date(searchParams.get("end"));
+    }
+    end_date.setMinutes(end_date.getMinutes() - end_date.getTimezoneOffset());
+
+    let start_date;
+    if (!searchParams.has("start")) {
+        start_date = new Date(end_date);
+        start_date.setDate(start_date.getDate() - 1);
+    } else {
+        start_date = new Date(searchParams.get("start"));
+    }
+
+
+    // https://stackoverflow.com/a/60884408
+    start_date.setMilliseconds(null);
+    start_date.setSeconds(null);
+    end_date.setMilliseconds(null);
+    end_date.setSeconds(null);
+
+    let max_date = new Date();
+    max_date.setMinutes(max_date.getMinutes() - max_date.getTimezoneOffset());
+    let max_date_string = max_date.toISOString().slice(0, -1);
+
+
+    let start = $("#start");
+    start.attr("max", max_date_string);
+    start.val(start_date.toISOString().slice(0, -1));
+
+    let end = $("#end");
+    end.attr("max", max_date_string);
+    end.val(end_date.toISOString().slice(0, -1));
+
     // load data from server
     $.ajax({
-        url: "/data",
+        url: `/data?start=${encodeURIComponent(start_date.toISOString().slice(0, -1))}&end=${encodeURIComponent(end_date.toISOString().slice(0, -1))}`,
         type: "GET",
         success: result => {
             console.log(result);
@@ -38,8 +75,8 @@ function drawChart(data) {
                     unit: 'minute'
                 }
             }
-        },elements: {
-            point:{
+        }, elements: {
+            point: {
                 radius: 1
             }
         }
