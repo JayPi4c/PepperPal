@@ -1,4 +1,5 @@
 body {
+    margin: 0;
     --text-color: #222;
     --bkg-color: #fff;
     --input-bkg-color : #fff;
