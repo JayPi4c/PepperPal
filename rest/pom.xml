@@ -33,15 +33,6 @@
             <artifactId>hibernate4-sqlite-dialect</artifactId>
             <version>0.1.2</version>
         </dependency>
-        <!--
-        <dependency>
-            <groupId>com.zsoltfabok</groupId>
-            <artifactId>sqlite-dialect</artifactId>
-            <version>1.0</version>
-        </dependency>
-        can't be used because it does crash on startup when the db file does exist already
-        https://stackoverflow.com/questions/49512860/spring-boot-failed-on-build-with-sqlitedialect-when-db-file-has-already-exist
-        -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -58,14 +49,6 @@
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>1.8.0</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
