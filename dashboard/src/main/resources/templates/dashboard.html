@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/ico" th:href="@{../favicon.ico}">
+    <link rel="stylesheet" href="/css/requests.css">
+    <link rel="stylesheet" href="/css/loading.css">
+    <title>Dashboard</title>
+    <script
+            src="https://code.jquery.com/jquery-3.6.4.min.js"
+            integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@^4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@^2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@^1"></script>
+    <script src="/js/charts.js" type="text/javascript"></script>
+    <script src="/js/theme.js" type="text/javascript"></script>
+</head>
+<body>
+<h1 class="title">Chili Dashboard</h1>
+<form class="input-section" action="/" method="GET">
+    <div class="input-container">
+        <label for="start">Start datetime:</label>
+        <input type="datetime-local" id="start" name="start"
+               min="2023-03-15T00:00">
+    </div>
+    <div class="input-container">
+        <label for="end">End datetime:</label>
+        <input type="datetime-local" id="end" name="end"
+               min="2023-03-15T00:00">
+    </div>
+
+    <input id="makeRequest" type="submit" value="Update">
+</form>
+<button class="btn-toggle">Theme</button>
+<canvas class="chart" id="moisture_chart" style="height: 38vh; width:100%;"></canvas>
+<canvas class="chart" id="temp_humid_chart" style="height: 38vh; width:100%;"></canvas>
+<div class="modal"></div>
+</body>
+</html>
