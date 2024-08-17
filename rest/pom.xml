@@ -3,31 +3,22 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.18</version> <!-- needed for java 11 support -->
-        <relativePath/>
+        <groupId>com.jaypi4c.pepperpal</groupId>
+        <artifactId>pepperpal-parent</artifactId>
+        <version>${revision}</version>
     </parent>
-    <groupId>com.jaypi4c</groupId>
-    <artifactId>chili-rest-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>chili-rest-api</name>
-    <description>Demo project for Spring Boot</description>
-    <properties>
-        <java.version>11</java.version>
-    </properties>
+    <artifactId>rest</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Rest</name>
+
+    <description>REST API for data input</description>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -35,7 +26,7 @@
         <dependency>
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
-            <version>3.46.0.0</version>
+            <version>3.46.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.enigmabridge</groupId>

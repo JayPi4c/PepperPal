@@ -3,19 +3,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.10</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>com.jaypi4c.pepperpal</groupId>
+        <artifactId>pepperpal-parent</artifactId>
+        <version>${revision}</version>
     </parent>
-    <groupId>com.jaypi4c</groupId>
-    <artifactId>chilidashboard</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>Chili Dashboard</name>
+    <artifactId>dashboard</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Dashboard</name>
     <description>Dashboard for the data collected with the rest API</description>
-    <properties>
-        <java.version>11</java.version>
-    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

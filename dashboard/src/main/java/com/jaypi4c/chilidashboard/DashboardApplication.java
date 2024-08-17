@@ -1,13 +1,13 @@
-package com.jaypi4c.chilirestapi;
+package com.jaypi4c.chilidashboard;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ChiliRestApiApplication {
+public class DashboardApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ChiliRestApiApplication.class, args);
+        SpringApplication.run(DashboardApplication.class, args);
     }
 
 }

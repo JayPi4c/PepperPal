@@ -6,10 +6,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableScheduling
 @SpringBootApplication
-public class MastodonBotApplication {
+public class BotApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MastodonBotApplication.class, args);
+		SpringApplication.run(BotApplication.class, args);
 	}
 
 }

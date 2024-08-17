@@ -3,42 +3,22 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.10</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>com.jaypi4c.pepperpal</groupId>
+		<artifactId>pepperpal-parent</artifactId>
+		<version>${revision}</version>
 	</parent>
-	<groupId>com.jaypi4c</groupId>
-	<artifactId>mastodon-bot</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>Mastodon Bot</name>
-	<description>Mastodon Bot for chili rest api</description>
-	<properties>
-		<java.version>11</java.version>
-	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-logging</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+	<artifactId>bot</artifactId>
+	<packaging>jar</packaging>
 
+	<name>Bot</name>
+	<description>Mastodon Bot for chili rest api</description>
+
+	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<!-- <dependency>
-             <groupId>com.github.sys1yagi</groupId>
-             <artifactId>mastodon4j</artifactId>
-             <version>1.7.0</version>
-         </dependency>
-         -->
 		<dependency>
 			<groupId>social.bigbone</groupId>
 			<artifactId>bigbone</artifactId>
@@ -56,44 +36,19 @@
 			<artifactId>jackson-databind</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-log4j2</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
+	<repositories>
+		<repository>
+			<id>maven-central-snapshots</id>
+			<name>Maven Central Snapshot Repository</name>
+			<url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 </project>
