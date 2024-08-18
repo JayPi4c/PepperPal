@@ -1,6 +1,6 @@
-package com.jaypi4c.pepperpal.rest.repository;
+package com.jaypi4c.pepperpal.api.repository;
 
-import com.jaypi4c.pepperpal.rest.model.SoilData;
+import com.jaypi4c.pepperpal.api.model.SoilData;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

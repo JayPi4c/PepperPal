@@ -1,4 +1,4 @@
-package com.jaypi4c.pepperpal.rest.exception;
+package com.jaypi4c.pepperpal.api.exception;
 
 import java.util.UUID;
 

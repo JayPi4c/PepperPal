@@ -19,7 +19,7 @@
     <url>https://github.com/JayPi4c/PepperPal</url>
 
     <modules>
-        <module>rest</module>
+        <module>api</module>
         <module>dashboard</module>
         <module>bot</module>
     </modules>

@@ -1,4 +1,4 @@
-package com.jaypi4c.pepperpal.rest.model;
+package com.jaypi4c.pepperpal.api.model;
 
 
 import lombok.Data;

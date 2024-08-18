@@ -1,4 +1,4 @@
-package com.jaypi4c.pepperpal.rest.config;
+package com.jaypi4c.pepperpal.api.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;

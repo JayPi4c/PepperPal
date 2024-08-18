@@ -7,10 +7,10 @@
         <artifactId>pepperpal-parent</artifactId>
         <version>${revision}</version>
     </parent>
-    <artifactId>rest</artifactId>
+    <artifactId>api</artifactId>
     <packaging>jar</packaging>
 
-    <name>Rest</name>
+    <name>API</name>
 
     <description>REST API for data input</description>
 

@@ -1,7 +1,7 @@
-package com.jaypi4c.pepperpal.rest.assembler;
+package com.jaypi4c.pepperpal.api.assembler;
 
-import com.jaypi4c.pepperpal.rest.controller.SoilDataController;
-import com.jaypi4c.pepperpal.rest.model.SoilData;
+import com.jaypi4c.pepperpal.api.controller.SoilDataController;
+import com.jaypi4c.pepperpal.api.model.SoilData;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;

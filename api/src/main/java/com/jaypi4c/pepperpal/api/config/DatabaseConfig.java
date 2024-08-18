@@ -1,4 +1,4 @@
-package com.jaypi4c.pepperpal.rest.config;
+package com.jaypi4c.pepperpal.api.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,9 +1,9 @@
-package com.jaypi4c.pepperpal.rest.controller;
+package com.jaypi4c.pepperpal.api.controller;
 
-import com.jaypi4c.pepperpal.rest.assembler.SoilDataModelAssembler;
-import com.jaypi4c.pepperpal.rest.exception.SoilDataNotFoundException;
-import com.jaypi4c.pepperpal.rest.model.SoilData;
-import com.jaypi4c.pepperpal.rest.repository.SoilDataRepository;
+import com.jaypi4c.pepperpal.api.assembler.SoilDataModelAssembler;
+import com.jaypi4c.pepperpal.api.exception.SoilDataNotFoundException;
+import com.jaypi4c.pepperpal.api.model.SoilData;
+import com.jaypi4c.pepperpal.api.repository.SoilDataRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

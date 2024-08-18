@@ -1,13 +1,13 @@
-package com.jaypi4c.pepperpal.rest;
+package com.jaypi4c.pepperpal.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RestApplication {
+public class ApiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(RestApplication.class, args);
+        SpringApplication.run(ApiApplication.class, args);
     }
 
 }

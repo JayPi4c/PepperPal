@@ -3,7 +3,7 @@
 ## Build
 
 ```bash
-./mvnw clean install package -pl rest
+./mvnw clean install package -pl api
 ```
 
 ## Deploy
@@ -11,13 +11,13 @@
 The jar file might be started with the following command:
 
 ```bash
-java -jar rest/target/rest-0.0.1.jar
+java -jar api/target/api-0.0.1.jar
 ```
 
 or
 
 ```bash
-./rest/target/rest-0.0.1.jar
+./api/target/api-0.0.1.jar
 ```
 
 Apparently, the jar file can be made executable by default.
@@ -26,7 +26,7 @@ However, you might want to use a more sophisticated way to start the jar file, e
 
 ### Systemd
 
-Create the following file at `/etc/systemd/system/pepperpal-rest-api.service`:
+Create the following file at `/etc/systemd/system/pepperpal-api.service`:
 
 ```ini
 [Unit]
@@ -35,7 +35,7 @@ After=syslog.target
 
 [Service]
 User=pi # Change this to the user you want to run the service as
-ExecStart=/home/pi/pepperpal/rest/rest-0.0.1.jar # Change this to the path of the jar
+ExecStart=/home/pi/pepperpal/api/api-0.0.1.jar # Change this to the path of the jar
 SuccessExitStatus=143
 Restart=on-failure
 
@@ -47,8 +47,8 @@ Then run:
 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl enable pepperpal-rest-api
-sudo systemctl start pepperpal-rest-api
+sudo systemctl enable pepperpal-api
+sudo systemctl start pepperpal-api
 ```
 
 See
