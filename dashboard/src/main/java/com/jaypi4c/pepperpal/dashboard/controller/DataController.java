@@ -60,7 +60,7 @@ public class DataController {
     }
 
     private List<SoilData> getChartData(LocalDateTime beginDate, LocalDateTime endDate, int page, int size) {
-        String url = MessageFormat.format("{0}/chili-app/v1/soilData/between-dates?beginDate={1}&endDate={2}&page={3}&size={4}",
+        String url = MessageFormat.format("{0}/pepperpal/v1/soilData/between-dates?beginDate={1}&endDate={2}&page={3}&size={4}",
                 baseUrl, beginDate, endDate, page, size);
         log.debug("Fetching data for page {} with url {}", page, url);
         DataSet soilDataSet = restTemplate.getForObject(url, DataSet.class);

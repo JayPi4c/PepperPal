@@ -24,7 +24,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Slf4j
 @RestController
-@RequestMapping("/chili-app/v1/soilData")
+@RequestMapping("/pepperpal/v1/soilData")
 public class SoilDataController {
 
     private final SoilDataRepository repository;
@@ -52,7 +52,7 @@ public class SoilDataController {
                                                                @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
                                                                @RequestParam(name = "page", defaultValue = "0") int page,
                                                                @RequestParam(name = "size", defaultValue = "10") int size) {
-        log.info("Request to get soil data between dates: " + beginDate + " and " + endDate + " with page: " + page + " and size: " + size);
+        log.info("Request to get soil data between dates: {} and {} with page: {} and size: {}", beginDate, endDate, page, size);
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<SoilData> soilDataPage = repository.findByDateBetween(beginDate, endDate, pageRequest);
 
@@ -66,7 +66,7 @@ public class SoilDataController {
 
     @PostMapping
     public ResponseEntity<EntityModel<SoilData>> newSoilData(@RequestBody SoilData newSoilData) {
-        log.info("Request to save new soil data: " + newSoilData.hashCode());
+        log.info("Request to save new soil data: {}", newSoilData.hashCode());
 
         EntityModel<SoilData> entityModel = assembler.toModel(repository.save(newSoilData));
 
@@ -75,7 +75,7 @@ public class SoilDataController {
 
     @GetMapping("/{id}")
     public ResponseEntity<EntityModel<SoilData>> one(@PathVariable UUID id) {
-        log.info("Request to get soil data with id: " + id);
+        log.info("Request to get soil data with id: {}", id);
         SoilData soilData = repository.findById(id)
                 .orElseThrow(() -> new SoilDataNotFoundException(id));
 
@@ -102,7 +102,7 @@ public class SoilDataController {
 
     @PutMapping("/{id}")
     public ResponseEntity<EntityModel<SoilData>> replaceSoilData(@RequestBody SoilData newSoilData, @PathVariable UUID id) {
-        log.info("Request to replace soil data with id: " + id + " with new soil data: " + newSoilData.hashCode());
+        log.info("Request to replace soil data with id: {}  with new soil data: {}", id, newSoilData.hashCode());
 
         SoilData updatedSoilData = repository.findById(id)
                 .map(data -> {
@@ -122,7 +122,7 @@ public class SoilDataController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSoilData(@PathVariable UUID id) {
-        log.info("Request to delete soil data with id: " + id);
+        log.info("Request to delete soil data with id: {}", id);
         repository.deleteById(id);
         return ResponseEntity.noContent().build();
     }

@@ -57,10 +57,10 @@ for more information.
 
 ## Usage
 
-After correct deployment the REST API should be available at `http://localhost:8080`.
+After correct deployment the REST API is available at `http://localhost:8080`.
 
 You can test the API by sending a request:
 
 ```bash
-curl -X POST -H "Content-Type: application/json" -d '{"temperature":"22.3", "moistureLevel":"3", "relativeHumidity":"7"}' localhost:8080/chili-app/v1/soilData
+curl -X POST -H "Content-Type: application/json" -d '{"temperature":"22.3", "moistureLevel":"3", "relativeHumidity":"7"}' localhost:8080/pepperpal/v1/soilData
 ```
