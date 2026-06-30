@@ -1,9 +1,9 @@
 package de.jaypi4c.pepperpal.dashboard.controller;
 
+import de.jaypi4c.pepperpal.dashboard.autoconfigure.BackendProperties;
 import de.jaypi4c.pepperpal.dashboard.model.DataSet;
 import de.jaypi4c.pepperpal.dashboard.model.SoilData;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,14 +22,12 @@ import java.util.List;
 @RequestMapping("/data")
 public class DataController {
 
-
     private final RestTemplate restTemplate;
+    private final BackendProperties backendProperties;
 
-    @Value("${jaypi4c.chili-app.base-url}")
-    private String baseUrl;
-
-    public DataController(RestTemplate restTemplate) {
+    public DataController(RestTemplate restTemplate, BackendProperties backendProperties) {
         this.restTemplate = restTemplate;
+        this.backendProperties = backendProperties;
     }
 
     @GetMapping
@@ -61,7 +59,7 @@ public class DataController {
 
     private List<SoilData> getChartData(LocalDateTime beginDate, LocalDateTime endDate, int page, int size) {
         String url = MessageFormat.format("{0}/pepperpal/v1/soilData/between-dates?beginDate={1}&endDate={2}&page={3}&size={4}",
-                baseUrl, beginDate, endDate, page, size);
+                backendProperties.getBaseUrl(), beginDate, endDate, page, size);
         log.debug("Fetching data for page {} with url {}", page, url);
         DataSet soilDataSet = restTemplate.getForObject(url, DataSet.class);
 

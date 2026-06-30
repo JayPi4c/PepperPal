@@ -12,7 +12,7 @@
         </File>
     </Appenders>
     <Loggers>
-        <Logger name="com.jaypi4c" level="${sys:logging.level:-debug}">
+        <Logger name="de.jaypi4c" level="${sys:logging.level:-debug}">
             <AppenderRef ref="LogToFile"/>
         </Logger>
         <Root level="info">

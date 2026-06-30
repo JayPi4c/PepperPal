@@ -4,9 +4,11 @@ spring.jpa:
   show-sql: true
   # https://stackoverflow.com/a/26882135:
   generate-ddl: true
-sqlite:
-  driver-class-name: org.sqlite.JDBC
-  url: jdbc:sqlite:soilData.db
-jaypi4c.openapi:
-  dev-url: http://localhost:8080
-  prod-url: https://github.com/JayPi4c
+pepperpal:
+  db:
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:soilData.db
+  api:
+    openapi:
+      dev-url: http://localhost:8080
+      prod-url: http://localhost:8080
