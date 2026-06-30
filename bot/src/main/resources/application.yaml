@@ -1,0 +1,11 @@
+spring.main.web-application-type: none
+jaypi4c:
+  mastodon:
+    baseUrl: mastodon.social
+    accessToken: ${MASTODON_ACCESS_TOKEN:ACCESS_TOKEN}
+    receiver: RECEIVER
+  chili-app:
+    base-url: http://localhost
+    port: 8080
+    gap-in-minutes: 30
+    min-waterlevel: 60

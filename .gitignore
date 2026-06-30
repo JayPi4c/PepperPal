@@ -6,6 +6,8 @@ target/
 
 *.db
 logs/
+application-*.yaml
+!application-docker.yaml
 
 ### STS ###
 .apt_generated

@@ -1,54 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>com.jaypi4c.pepperpal</groupId>
-		<artifactId>pepperpal-parent</artifactId>
-		<version>${revision}</version>
-	</parent>
-	<artifactId>bot</artifactId>
-	<packaging>jar</packaging>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>de.jaypi4c.pepperpal</groupId>
+        <artifactId>pepperpal-parent</artifactId>
+        <version>${revision}</version>
+    </parent>
+    <artifactId>bot</artifactId>
+    <packaging>jar</packaging>
 
-	<name>Bot</name>
-	<description>Mastodon Bot for chili rest api</description>
+    <name>Bot</name>
+    <description>Mastodon Bot for chili rest api</description>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+    <properties>
+        <bigbone.version>2.0.0</bigbone.version>
+    </properties>
 
-		<dependency>
-			<groupId>social.bigbone</groupId>
-			<artifactId>bigbone</artifactId>
-			<version>2.0.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>social.bigbone</groupId>
-			<artifactId>bigbone-rx</artifactId>
-			<version>2.0.0-SNAPSHOT</version>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.pattafeufeu</groupId>
+            <artifactId>bigbone</artifactId>
+            <version>${bigbone.version}</version>
+        </dependency>
+    </dependencies>
 
-
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-		</dependency>
-
-	</dependencies>
-
-	<repositories>
-		<repository>
-			<id>maven-central-snapshots</id>
-			<name>Maven Central Snapshot Repository</name>
-			<url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 </project>

@@ -9,7 +9,7 @@
         <version>2.7.18</version>
     </parent>
 
-    <groupId>com.jaypi4c.pepperpal</groupId>
+    <groupId>de.jaypi4c.pepperpal</groupId>
     <artifactId>pepperpal-parent</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
