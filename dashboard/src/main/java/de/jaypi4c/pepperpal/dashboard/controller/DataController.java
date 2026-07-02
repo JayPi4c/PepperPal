@@ -3,6 +3,8 @@ package de.jaypi4c.pepperpal.dashboard.controller;
 import de.jaypi4c.pepperpal.dashboard.autoconfigure.BackendProperties;
 import de.jaypi4c.pepperpal.dashboard.model.DataSet;
 import de.jaypi4c.pepperpal.dashboard.model.SoilData;
+import de.jaypi4c.pepperpal.dashboard.service.SoilDataPreparationService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,15 +22,12 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/data")
+@RequiredArgsConstructor
 public class DataController {
 
     private final RestTemplate restTemplate;
     private final BackendProperties backendProperties;
-
-    public DataController(RestTemplate restTemplate, BackendProperties backendProperties) {
-        this.restTemplate = restTemplate;
-        this.backendProperties = backendProperties;
-    }
+    private final SoilDataPreparationService preparationService;
 
     @GetMapping
     public List<SoilData> getSoilData(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
@@ -54,7 +53,7 @@ public class DataController {
             data.addAll(tmp);
         } while (!tmp.isEmpty());
 
-        return data;
+        return preparationService.prepare(data);
     }
 
     private List<SoilData> getChartData(LocalDateTime beginDate, LocalDateTime endDate, int page, int size) {
