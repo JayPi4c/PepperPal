@@ -1,12 +1,12 @@
 package de.jaypi4c.pepperpal.api.model;
 
 
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 

@@ -45,7 +45,7 @@ public class MastodonService {
     @Scheduled(fixedRate = 15, timeUnit = TimeUnit.MINUTES)
     public void checkAndNotify() {
         log.info("Checking for new data");
-        String latestUrl = MessageFormat.format("{0}:{1}/chili-app/v1/soilData/latest", backendProperties.getBaseUrl(), backendProperties.getPort());
+        String latestUrl = MessageFormat.format("{0}:{1}/pepperpal/v1/soilData/latest", backendProperties.getBaseUrl(), backendProperties.getPort());
         Optional<SoilData> latest = Optional.ofNullable(restTemplate.getForObject(latestUrl, SoilData.class));
 
         if (latest.isPresent()) {

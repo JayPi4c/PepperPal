@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.18</version>
+        <version>4.1.0</version>
     </parent>
 
     <groupId>de.jaypi4c.pepperpal</groupId>
@@ -27,7 +27,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <revision>0.0.1</revision>
-        <java.version>11</java.version>
+        <java.version>25</java.version>
     </properties>
 
     <dependencies>
@@ -41,11 +41,16 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <dependency>
+            <groupId>tools.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
-
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -68,19 +73,10 @@
             <artifactId>mockito-junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -95,25 +91,12 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
                 <!-- Make sure that all projects with main class execute repackage goal
                     https://docs.spring.io/spring-boot/docs/3.1.5/maven-plugin/reference/htmlsingle/#packaging
                 -->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <executable>true</executable>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
