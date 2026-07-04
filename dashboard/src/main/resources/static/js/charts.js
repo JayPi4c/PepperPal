@@ -9,8 +9,23 @@ $(document).ready(() => {
         }
     });
 
+    // Format a Date for <input type="datetime-local">
+    function formatDateTimeLocal(date) {
+        const pad = n => String(n).padStart(2, "0");
+
+        return `${date.getFullYear()}-${
+            pad(date.getMonth() + 1)
+        }-${
+            pad(date.getDate())
+        }T${
+            pad(date.getHours())
+        }:${
+            pad(date.getMinutes())
+        }`;
+    }
+
     // https://stackoverflow.com/a/42353290
-    let searchParams = new URLSearchParams(window.location.search)
+    let searchParams = new URLSearchParams(window.location.search);
     let end_date;
 
     if (!searchParams.has("end")) {
@@ -18,7 +33,6 @@ $(document).ready(() => {
     } else {
         end_date = new Date(searchParams.get("end"));
     }
-    end_date.setMinutes(end_date.getMinutes() - end_date.getTimezoneOffset());
 
     let start_date;
     if (!searchParams.has("start")) {
@@ -28,29 +42,30 @@ $(document).ready(() => {
         start_date = new Date(searchParams.get("start"));
     }
 
-
+    // Remove seconds and milliseconds
     // https://stackoverflow.com/a/60884408
-    start_date.setMilliseconds(null);
-    start_date.setSeconds(null);
-    end_date.setMilliseconds(null);
-    end_date.setSeconds(null);
+    start_date.setMilliseconds(0);
+    start_date.setSeconds(0);
+    end_date.setMilliseconds(0);
+    end_date.setSeconds(0);
 
     let max_date = new Date();
-    max_date.setMinutes(max_date.getMinutes() - max_date.getTimezoneOffset());
-    let max_date_string = max_date.toISOString().slice(0, -1);
+    max_date.setMilliseconds(0);
+    max_date.setSeconds(0);
 
+    let max_date_string = formatDateTimeLocal(max_date);
 
     let start = $("#start");
     start.attr("max", max_date_string);
-    start.val(start_date.toISOString().slice(0, -1));
+    start.val(formatDateTimeLocal(start_date));
 
     let end = $("#end");
     end.attr("max", max_date_string);
-    end.val(end_date.toISOString().slice(0, -1));
+    end.val(formatDateTimeLocal(end_date));
 
     // load data from server
     $.ajax({
-        url: `/data?start=${encodeURIComponent(start_date.toISOString().slice(0, -1))}&end=${encodeURIComponent(end_date.toISOString().slice(0, -1))}`,
+        url: `/data?start=${encodeURIComponent(formatDateTimeLocal(start_date))}&end=${encodeURIComponent(formatDateTimeLocal(end_date))}`,
         type: "GET",
         success: result => {
             console.log(result);
@@ -84,7 +99,7 @@ function drawChart(data) {
 
     const moisture_ctx = $("#moisture_chart");
     let labels = data.map(d => new Date(d.created));
-    const moisture_chart = new Chart(moisture_ctx, {
+    new Chart(moisture_ctx, {
         type: "line",
         data: {
             labels: labels,
@@ -95,14 +110,14 @@ function drawChart(data) {
                     backgroundColor: "rgba(0, 0, 0, 0)",
                     borderColor: "rgba(0, 0, 255, 0.5)",
                     borderWidth: 2
-                }],
+                }]
         },
         options: options
     });
 
 
     const temp_humid_ctx = $("#temp_humid_chart");
-    const temp_humid_chart = new Chart(temp_humid_ctx, {
+    new Chart(temp_humid_ctx, {
         type: "line",
         data: {
             labels: labels,
@@ -111,7 +126,7 @@ function drawChart(data) {
                     label: "Temperature",
                     data: data.map(d => d.temperature),
                     backgroundColor: "rgba(0, 0, 0, 0)",
-                    borderColor: "rgba(255, 0, 0, 0.5)",
+                    borderColor: "rgba(255, 0, 0, 0.5)"
                 },
                 {
                     label: "Humidity",
@@ -120,7 +135,7 @@ function drawChart(data) {
                     borderColor: "rgba(0, 0, 255, 0.5)",
                     borderWidth: 2
                 }
-            ],
+            ]
         },
         options: options
     });
