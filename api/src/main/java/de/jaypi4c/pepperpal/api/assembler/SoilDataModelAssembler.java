@@ -2,6 +2,7 @@ package de.jaypi4c.pepperpal.api.assembler;
 
 import de.jaypi4c.pepperpal.api.controller.SoilDataController;
 import de.jaypi4c.pepperpal.api.model.SoilData;
+import org.jspecify.annotations.NullMarked;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class SoilDataModelAssembler implements RepresentationModelAssembler<SoilData, EntityModel<SoilData>> {
 
     @Override
+    @NullMarked
     public EntityModel<SoilData> toModel(SoilData soilData) {
         return EntityModel.of(soilData,
                 linkTo(methodOn(SoilDataController.class).one(soilData.getId())).withSelfRel(),

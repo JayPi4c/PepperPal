@@ -87,8 +87,8 @@ public class SoilDataController {
     /**
      * TODO: if the updated parameter is set to true, the find latest method should return the latest updated soil data
      *
-     * @param updated
-     * @return
+     * @param updated flat to search only for updates flags
+     * @return the latest entry to be found in the database
      */
     @GetMapping("/latest")
     public ResponseEntity<EntityModel<SoilData>> latest(@RequestParam(name = "updated", defaultValue = "false") boolean updated) {
