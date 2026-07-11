@@ -1,40 +1,87 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" data-bs-theme="light" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/ico" th:href="@{../favicon.ico}">
-    <link rel="stylesheet" href="/css/requests.css">
-    <link rel="stylesheet" href="/css/loading.css">
-    <title>Dashboard</title>
-    <script src="/webjars/jquery/jquery.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@^4"></script> -->
-    <script src="/webjars/chart.js/4.5.1/dist/chart.umd.js"></script>
-    <script src="/webjars/moment/moment.js"></script>
+    <title>Chili Dashboard</title>
 
-    <script src="webjars/chartjs-adapter-moment/dist/chartjs-adapter-moment.js"></script>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/webjars/apexcharts/dist/apexcharts.js"></script>
+    <script src="/js/app.js" type="text/javascript"></script>
 
-    <script src="/js/charts.js" type="text/javascript"></script>
-    <script src="/js/theme.js" type="text/javascript"></script>
+    <style>
+        .chart-wrapper {
+            min-height: 350px;
+            width: 100%;
+        }
+    </style>
 </head>
-<body>
-<h1 class="title">Chili Dashboard</h1>
-<form class="input-section" action="/" method="GET">
-    <div class="input-container">
-        <label for="start">Start datetime:</label>
-        <input type="datetime-local" id="start" name="start"
-               min="2023-03-15T00:00">
+<body class="bg-body-tertiary">
+
+<nav class="navbar navbar-expand-lg bg-body shadow-sm mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img th:src="@{../chili.png}" alt="Chili" width="30" height="30" class="me-2">
+            <span class="h1 mb-0 fs-4">Chili Dashboard</span>
+        </a>
+        <div class="d-flex gap-2">
+            <button class="btn btn-outline-secondary btn-sm" id="toggleMoisture">Show/Hide Moisture</button>
+            <button class="btn btn-outline-primary btn-sm" id="toggleTheme">🌓 Theme</button>
+        </div>
     </div>
-    <div class="input-container">
-        <label for="end">End datetime:</label>
-        <input type="datetime-local" id="end" name="end"
-               min="2023-03-15T00:00">
+</nav>
+
+<div class="container-fluid px-4">
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <form id="updateForm" class="row gy-3 gx-4 align-items-end">
+                <div class="col-12 col-md-auto flex-grow-1">
+                    <label for="start" class="form-label fw-bold text-secondary mb-1">Start datetime:</label>
+                    <input type="datetime-local" class="form-control" id="start" name="start" required>
+                </div>
+                <div class="col-12 col-md-auto flex-grow-1">
+                    <label for="end" class="form-label fw-bold text-secondary mb-1">End datetime:</label>
+                    <input type="datetime-local" class="form-control" id="end" name="end" required>
+                </div>
+                <div class="col-12 col-md-auto">
+                    <button type="submit" class="btn btn-primary w-100" id="makeRequest">
+                        Update Data
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <input id="makeRequest" type="submit" value="Update">
-</form>
-<button class="btn-toggle">Theme</button>
-<canvas class="chart" id="moisture_chart" style="height: 38vh; width:100%;"></canvas>
-<canvas class="chart" id="temp_humid_chart" style="height: 38vh; width:100%;"></canvas>
-<div class="modal"></div>
+    <div class="row g-4 mb-4">
+        <div class="col-12 d-none" id="moisture_wrapper">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-secondary">Soil Moisture</h5>
+                    <div class="chart-wrapper" id="moisture_chart"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12" id="temp_humid_wrapper">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-secondary">Temperature & Humidity</h5>
+                    <div class="chart-wrapper" id="temp_humid_chart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="loadingOverlay"
+     class="position-fixed top-0 left-0 w-100 h-100 d-none justify-content-center align-items-center"
+     style="background-color: rgba(0,0,0,0.4); z-index: 9999;">
+    <div class="spinner-border text-light" style="width: 4rem; height: 4rem;" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
 </body>
 </html>
