@@ -1,9 +1,8 @@
-// Global chart instances
-let moistureChartInstance = null;
-let tempHumidChartInstance = null;
+// Global references for ApexCharts instances
+let moistureChart = null;
+let tempHumidChart = null;
 
 document.addEventListener("DOMContentLoaded", () => {
-    // --- UI Element References ---
     const htmlElement = document.documentElement;
     const form = document.getElementById("updateForm");
     const startInput = document.getElementById("start");
@@ -13,15 +12,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const toggleThemeBtn = document.getElementById("toggleTheme");
     const loadingOverlay = document.getElementById("loadingOverlay");
 
-    // --- Theme Management (Bootstrap 5 Native) ---
-    const currentTheme = localStorage.getItem("theme") || "light";
-    htmlElement.setAttribute("data-bs-theme", currentTheme);
+    // --- Theme Management ---
+    const getTheme = () => localStorage.getItem("theme") || "light";
+    htmlElement.setAttribute("data-bs-theme", getTheme());
 
     toggleThemeBtn.addEventListener("click", () => {
         const newTheme = htmlElement.getAttribute("data-bs-theme") === "dark" ? "light" : "dark";
         htmlElement.setAttribute("data-bs-theme", newTheme);
         localStorage.setItem("theme", newTheme);
-        // Optional: Re-draw charts here if you want grid lines to dynamically change color
+
+        // ApexCharts has native theme support. We update it live here:
+        const apexTheme = newTheme === "dark" ? "dark" : "light";
+        if (moistureChart) moistureChart.updateOptions({theme: {mode: apexTheme}});
+        if (tempHumidChart) tempHumidChart.updateOptions({theme: {mode: apexTheme}});
     });
 
     // --- Date Management ---
@@ -58,9 +61,8 @@ document.addEventListener("DOMContentLoaded", () => {
         endInput.value = formatDateTimeLocal(endDate);
     };
 
-    // --- Data Fetching & Loading State ---
+    // --- Data Fetching ---
     const fetchData = async (start, end) => {
-        // Show Bootstrap loading overlay
         loadingOverlay.classList.remove("d-none");
         loadingOverlay.classList.add("d-flex");
 
@@ -69,12 +71,11 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!response.ok) throw new Error("Network response was not ok");
 
             const data = await response.json();
-            drawCharts(data);
+            renderCharts(data);
         } catch (error) {
             console.error("Failed to fetch data:", error);
             alert("Could not load chili data. Please try again.");
         } finally {
-            // Hide Bootstrap loading overlay
             loadingOverlay.classList.remove("d-flex");
             loadingOverlay.classList.add("d-none");
         }
@@ -88,7 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     toggleMoistureBtn.addEventListener("click", () => {
-        // Toggle Bootstrap's display-none class
         moistureWrapper.classList.toggle("d-none");
     });
 
@@ -100,69 +100,92 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchData(startInput.value, endInput.value);
 });
 
-// --- Chart Rendering ---
-function drawCharts(data) {
-    const labels = data.map(d => new Date(d.created));
+// --- ApexCharts Rendering ---
+function renderCharts(data) {
+    // Format data into [timestamp, value] tuples for ApexCharts time-series
+    const moistureData = data.map(d => [new Date(d.created).getTime(), d.moistureLevel]);
+    const tempData = data.map(d => [new Date(d.created).getTime(), d.temperature]);
+    const humidData = data.map(d => [new Date(d.created).getTime(), d.relativeHumidity]);
 
-    const commonOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            x: {
-                type: 'time',
-                ticks: {autoSkip: true, maxTicksLimit: 20},
-                time: {unit: 'minute'}
-            }
+    const currentTheme = localStorage.getItem("theme") === "dark" ? "dark" : "light";
+
+    // 1. Moisture Chart
+    const moistureOptions = {
+        series: [{name: 'Moisture', data: moistureData}],
+        chart: {
+            type: 'area',
+            height: '100%',
+            background: 'transparent', // Let Bootstrap handle backgrounds
+            toolbar: {show: true}, // Built-in zoom/pan tools
+            animations: {enabled: true}
         },
-        elements: {point: {radius: 1}},
-        interaction: {
-            mode: 'index',
-            intersect: false,
-        }
+        theme: {mode: currentTheme},
+        colors: ['#0d6efd'], // Bootstrap Primary
+        dataLabels: {enabled: false},
+        stroke: {curve: 'smooth', width: 2},
+        xaxis: {type: 'datetime'},
+        yaxis: {title: {text: 'Moisture Level'}}
     };
 
-    if (moistureChartInstance) moistureChartInstance.destroy();
-    if (tempHumidChartInstance) tempHumidChartInstance.destroy();
-
-    const moistureCtx = document.getElementById("moisture_chart");
-    moistureChartInstance = new Chart(moistureCtx, {
-        type: "line",
-        data: {
-            labels: labels,
-            datasets: [{
-                label: "Moisture Level",
-                data: data.map(d => d.moistureLevel),
-                backgroundColor: "rgba(13, 110, 253, 0.1)", // Bootstrap Primary Blue
-                borderColor: "rgba(13, 110, 253, 1)",
-                borderWidth: 2,
-                fill: true
-            }]
+    // 2. Temp & Humidity Chart (Multi-axis)
+    const tempHumidOptions = {
+        series: [
+            {name: 'Temperature', type: 'line', data: tempData},
+            {name: 'Humidity', type: 'line', data: humidData}
+        ],
+        chart: {
+            height: '100%',
+            background: 'transparent',
+            toolbar: {show: true},
+            animations: {enabled: true}
         },
-        options: commonOptions
-    });
+        theme: {mode: currentTheme},
+        colors: ['#dc3545', '#198754'], // Danger Red, Success Green
+        dataLabels: {enabled: false},
+        stroke: {curve: 'smooth', width: 2},
+        xaxis: {type: 'datetime'},
+        yaxis: [
+            {
+                title: {text: 'Temperature (°C)'},
+                labels: {style: {colors: '#dc3545'}}
+            },
+            {
+                opposite: true,
+                title: {text: 'Humidity (%)'},
+                labels: {style: {colors: '#198754'}}
+            }
+        ],
+        tooltip: {shared: true, intersect: false}
+    };
 
-    const tempHumidCtx = document.getElementById("temp_humid_chart");
-    tempHumidChartInstance = new Chart(tempHumidCtx, {
-        type: "line",
-        data: {
-            labels: labels,
-            datasets: [
-                {
-                    label: "Temperature (°C)",
-                    data: data.map(d => d.temperature),
-                    backgroundColor: "transparent",
-                    borderColor: "rgba(220, 53, 69, 1)", // Bootstrap Danger Red
-                    borderWidth: 2
-                },
-                {
-                    label: "Humidity (%)",
-                    data: data.map(d => d.relativeHumidity),
-                    backgroundColor: "transparent",
-                    borderColor: "rgba(25, 135, 84, 1)", // Bootstrap Success Green
-                    borderWidth: 2
-                }
-            ]
-        },
-        options: commonOptions
-    });
+    // If charts already exist, gracefully update their data with animations
+    if (moistureChart) {
+        moistureChart.updateSeries([
+            {
+                name: 'Moisture',
+                data: moistureData
+            }
+        ]);
+    } else {
+        moistureChart = new ApexCharts(document.querySelector("#moisture_chart"), moistureOptions);
+        moistureChart.render();
+    }
+
+    if (tempHumidChart) {
+        tempHumidChart.updateSeries([
+            {
+                name: 'Temperature',
+                type: 'line',
+                data: tempData
+            },
+            {
+                name: 'Humidity',
+                type: 'line',
+                data: humidData
+            }
+        ]);
+    } else {
+        tempHumidChart = new ApexCharts(document.querySelector("#temp_humid_chart"), tempHumidOptions);
+        tempHumidChart.render();
+    }
 }
