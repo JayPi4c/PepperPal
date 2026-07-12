@@ -123,7 +123,12 @@ function renderCharts(data) {
         colors: ['#0d6efd'], // Bootstrap Primary
         dataLabels: {enabled: false},
         stroke: {curve: 'smooth', width: 2},
-        xaxis: {type: 'datetime'},
+        xaxis: {
+            type: 'datetime',
+            labels: {
+                datetimeUTC: false
+            }
+        },
         yaxis: {title: {text: 'Moisture Level'}}
     };
 
@@ -143,7 +148,12 @@ function renderCharts(data) {
         colors: ['#dc3545', '#198754'], // Danger Red, Success Green
         dataLabels: {enabled: false},
         stroke: {curve: 'smooth', width: 2},
-        xaxis: {type: 'datetime'},
+        xaxis: {
+            type: 'datetime',
+            labels: {
+                datetimeUTC: false
+            }
+        },
         yaxis: [
             {
                 title: {text: 'Temperature (°C)'},
