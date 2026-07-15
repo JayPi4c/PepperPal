@@ -9,7 +9,5 @@ public class BackendProperties {
 
     private String baseUrl = "http://localhost";
     private String port = "8080";
-    private int gapInMinutes = 30;
-    private int minWaterlevel = 60;
 
 }

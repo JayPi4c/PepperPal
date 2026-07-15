@@ -35,7 +35,7 @@ public class MyMastodonClient {
             client.statuses().postStatus(statusText, mediaIds, visibility, inReplyToId, sensitive, spoilerText, language).execute();
             log.info("successfully posted status");
         } catch (BigBoneRequestException e) {
-            log.error("Error posting status", e);
+            log.error("Error posting status! ErrorCode: {} | {}", e.getHttpStatusCode(), e.getErrorDetails(), e);
         }
     }
 
